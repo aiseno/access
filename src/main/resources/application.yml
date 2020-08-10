@@ -1,0 +1,6 @@
+logging:
+  level:
+    com.aiseno.access: info
+#    root: debug
+server:
+  port: 8300
