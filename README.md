@@ -2,8 +2,13 @@
 基于springboot 2.x 开发的 权限校验框架
 
 #引入依赖
-
-
+```
+<dependency>
+  <groupId>com.github.aiseno</groupId>
+  <artifactId>access</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
 #使用方式
 
 ```java
