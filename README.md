@@ -12,29 +12,25 @@ public class AisenoAccessConfig {
 	
 	private static AccessSessionConfig accessSessionConfig = new AccessSessionConfig();
 
-	public static AccessModeProperties modeProperties = new AccessModeProperties();
-	
 	public AisenoAccessConfig(@Qualifier ApplicationContext applicationContext) {
 		accessSessionConfig.setApplicationContext(applicationContext);
 	}
-	//忽略地址
-	private static List<String> ignoreUris = new ArrayList<>();
-	
+        
 	static {
-		//Api开放忽略链接
+	        //Api开放忽略链接
+	        List<String> ignoreUris = new ArrayList<>();
 		ignoreUris.add("/doc*");
 		ignoreUris.add("/webjars/**");
 		ignoreUris.add("/swagger-resources**");
 		ignoreUris.add("/v3/api-docs**");
 		//验证模式
+		AccessModeProperties modeProperties = new AccessModeProperties();
 		modeProperties.setMode(AccessMode.TOKEN);
 		modeProperties.setMultipleLogin(true);
 		modeProperties.setTokenAgent(DefaultHeadersConst.HeaderAccess.ACCESS_AGENT.getCode());
 		modeProperties.setTokenName(DefaultHeadersConst.HeaderAccess.ACCESS_TOKEN.getCode());
 		modeProperties.setTokenPrefix(DefaultHeadersConst.HeaderAgents.getCodeArray());
-	}
-
-	static {
+		//配置信息
 		AccessProperties accessProperties = new AccessProperties();
 		accessProperties.setSuccessUrl("/access/index/v1");
 		//忽略地址
