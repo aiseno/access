@@ -6,6 +6,7 @@
 
 #使用方式
 
+
 @Configuration
 public class AutoAccessServletConfiguration {
 	
@@ -38,6 +39,5 @@ public class AutoAccessServletConfiguration {
 	public AccessServletConfiguration accessServletConfiguration() {
 		return AccessServletConfiguration.create(accessSessionConfig, this.accessDefaultPointcutAdvisor(), this.accessHandleImpl());
 	}
-	
 }
 
