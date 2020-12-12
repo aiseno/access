@@ -8,16 +8,39 @@
 		<version>2.3.1.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	
+	<groupId>com.github.aiseno</groupId>
+	<artifactId>access</artifactId>
+	<version>1.0.0</version>
+	<name>access</name>
+	<description>aiseno project for Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		<start-class>com.github.aiseno.AccessMain</start-class>
 	</properties>
+
+	<licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0 </name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>aiseno</name>
+            <email>1395958275@qq.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:https://github.com/aiseno/access.git</connection>
+        <developerConnection>scm:git:https://github.com/aiseno/access.git</developerConnection>
+        <url>https://github.com/aiseno/access</url>
+    </scm>
+	
 
 	<dependencies>
 		<dependency>
@@ -40,13 +63,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!--devtools热部署-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-            <scope>true</scope>
-        </dependency>
         <!-- aop -->
         <dependency>
 		    <groupId>org.aspectj</groupId>
@@ -67,7 +83,30 @@
           	<artifactId>jedis</artifactId>
         </dependency>
 	   <!-- 缓存 end -->
+	   <dependency>
+           <groupId>com.google.code.gson</groupId>
+           <artifactId>gson</artifactId>
+       </dependency>
+	   
 	</dependencies>
+
+	<!-- 远程仓库 -->
+	<distributionManagement>
+		
+		<repository>
+			<id>access-releases</id>
+			<name>access-releases</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+			<uniqueVersion>true</uniqueVersion>
+		</repository>
+		
+		<snapshotRepository>
+			<id>access-snapshots</id>
+			<name>access-snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		
+	</distributionManagement>
 
 	<build>
 		<plugins>
@@ -75,6 +114,61 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+			<!-- Source -->
+             <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-source-plugin</artifactId>
+                 <executions>
+                     <execution>
+                         <phase>package</phase>
+                         <goals>
+                             <goal>jar-no-fork</goal>
+                         </goals>
+                     </execution>
+                     <execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+                 </executions>
+             </plugin>
+             <!-- Javadoc -->
+             <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-javadoc-plugin</artifactId>
+                 <configuration>
+                     <show>private</show>
+                     <nohelp>true</nohelp>
+                     <charset>UTF-8</charset>
+            		<encoding>UTF-8</encoding>
+            		<docencoding>UTF-8</docencoding>
+            		<additionalparam>-Xdoclint:none</additionalparam>  <!-- TODO 临时解决不规范的javadoc生成报错,后面要规范化后把这行去掉 -->
+        		 </configuration>
+                 <executions>
+                     <execution>
+                         <phase>package</phase>
+                         <goals>
+                             <goal>jar</goal>
+                         </goals>
+                     </execution>
+                 </executions>
+             </plugin>
+             <!-- GPG -->
+             <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-gpg-plugin</artifactId>
+                 <version>1.5</version>
+                 <executions>
+                     <execution>
+                         <phase>verify</phase>
+                         <goals>
+                             <goal>sign</goal>
+                         </goals>
+                     </execution>
+                 </executions>
+             </plugin>
 		</plugins>
 	</build>
 
